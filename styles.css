@@ -62,3 +62,24 @@ body[data-theme="light"] .hero h1 span{color:#245a91}
 body[data-theme="light"] .panel-card{color:#f2f4f7}
 .brand-mark{position:relative;overflow:hidden}
 .brand-mark img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#101d30}
+
+/* Interações refinadas do mascote e transições globais */
+.mascot-host{left:var(--mascot-left,22px);transition:left calc(.42s / var(--chase-speed,1)) cubic-bezier(.2,.75,.25,1),opacity .35s,filter .35s}
+.mascot-host[data-animation="run"] .duck-foot{animation:duckFeet .18s ease-in-out infinite alternate}
+.mascot-host[data-expression="sad"] .duck-eye{height:12px;top:31px}
+.mascot-host[data-expression="sad"] .duck-eye:after{content:"";position:absolute;left:-2px;top:-2px;width:calc(100% + 4px);height:5px;border-top:2px solid #9a7128;border-radius:50%;transform:rotate(12deg)}
+.mascot-host[data-expression="sad"] .duck-beak{transform:rotate(180deg) scale(.72);top:50px}
+.mascot-host[data-expression="bored"] .duck-eye{height:9px;top:33px}
+.mascot-host[data-expression="bored"] .mascot-duck{animation:duckBored 4.8s ease-in-out infinite}
+.mascot-host[data-expression="happy"] .duck-cheek{background:#ed8b7999;box-shadow:0 0 9px #ed8b7955}
+.mascot-host[data-expression="happy"] .mascot-duck{animation:duckHappy 1.1s ease-in-out 2}
+@keyframes duckFeet{from{transform:rotate(-22deg) translateY(0)}to{transform:rotate(22deg) translateY(-3px)}}
+@keyframes duckBored{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(2deg) translateY(-2px)}}
+@keyframes duckHappy{0%,100%{transform:translateY(0) rotate(0)}35%{transform:translateY(-9px) rotate(-5deg)}70%{transform:translateY(-3px) rotate(5deg)}}
+body.page-enter{opacity:0;transform:translateY(5px)}
+body.page-ready{opacity:1;transform:none;transition:opacity .38s ease,transform .38s ease}
+a,button,.service-card,.content-panel,.gallery-tile{transition-duration:.24s}
+.gallery-image img{width:100%;height:100%;object-fit:cover;transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+.gallery-image:hover img{transform:scale(1.045)}
+@media(max-width:700px){.mascot-host{left:var(--mascot-left,9px);transition:left calc(.42s / var(--chase-speed,1)) cubic-bezier(.2,.75,.25,1),opacity .35s}}
+@media(prefers-reduced-motion:reduce){body.page-enter,body.page-ready{opacity:1;transform:none;transition:none}.mascot-host{transition:none!important}}
