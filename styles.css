@@ -50,3 +50,15 @@ body{font-family:var(--font)}
 .reviews-panel{padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
 @media(max-width:700px){.mascot-host{width:82px;height:102px;left:9px;bottom:10px;transform:scale(.82);transform-origin:bottom left}.duck-body{width:66px;height:68px;left:9px;bottom:14px}.duck-head{width:54px;height:51px;left:17px;top:6px}.duck-eye{width:13px;height:16px;top:20px}.duck-eye.left{left:13px}.duck-eye.right{right:13px}.duck-pupil{width:6px;height:8px;top:4px;left:4px}.duck-beak{top:36px;left:35px;width:23px;height:13px}.duck-hood{width:74px;height:44px;left:5px;bottom:6px}.duck-hood:before{top:16px;font-size:8px}.duck-hood:after{top:5px;left:29px;width:14px;height:12px}.duck-foot{bottom:7px;width:23px;height:9px}.duck-foot.left{left:17px}.duck-foot.right{right:17px}.duck-shadow{left:11px;width:62px}}
 @media(prefers-reduced-motion:reduce){.mascot-duck{animation:none!important}}
+
+body[data-theme="light"]:before{background:linear-gradient(145deg,#f3f6fa,#e8eef5 65%,#f7f9fc)}
+body[data-theme="light"] .site-header{background:#ffffffdf;border-bottom-color:#152d451f}
+body[data-theme="light"] .nav a{color:#42546a}
+body[data-theme="light"] .nav a:hover,body[data-theme="light"] .nav a[aria-current=page]{color:#12263d}
+body[data-theme="light"] .brand-copy strong{color:#16283b}
+body[data-theme="light"] .hero{background-color:#dce7f1}
+body[data-theme="light"] .hero-copy>p,body[data-theme="light"] .hero-meta{color:#42546a}
+body[data-theme="light"] .hero h1 span{color:#245a91}
+body[data-theme="light"] .panel-card{color:#f2f4f7}
+.brand-mark{position:relative;overflow:hidden}
+.brand-mark img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#101d30}
