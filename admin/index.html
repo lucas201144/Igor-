@@ -57,7 +57,8 @@ const ext=file.name.split(".").pop().toLowerCase(),path=folder+"/"+Date.now()+"-
 const result=await client.storage.from(BUCKET).upload(path,file,{upsert:false,contentType:file.type,cacheControl:"3600"});if(result.error)throw result.error;
 return client.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
 }
-form.elements.theme.addEventListener("change",()=>{const t=themes[form.elements.theme.value];if(t)Object.keys(t).forEach(k=>{if(form.elements[k])form.elements[k].value=t[k]})});\n$("#draft").addEventListener("click",()=>{try{localStorage.setItem("igor-site-draft",JSON.stringify(collect()));msg("Rascunho salvo somente neste navegador. Ainda não foi publicado.")}catch(e){msg("Não foi possível salvar o rascunho: "+e.message,true)}});
+form.elements.theme.addEventListener("change",()=>{const t=themes[form.elements.theme.value];if(t)Object.keys(t).forEach(k=>{if(form.elements[k])form.elements[k].value=t[k]})});
+$("#draft").addEventListener("click",()=>{try{localStorage.setItem("igor-site-draft",JSON.stringify(collect()));msg("Rascunho salvo somente neste navegador. Ainda não foi publicado.")}catch(e){msg("Não foi possível salvar o rascunho: "+e.message,true)}});
 form.addEventListener("submit",async e=>{
 e.preventDefault();if(!client||!session){msg("Sessão administrativa indisponível.",true);return}
 const btn=$("#publish");btn.disabled=true;msg("Validando dados e enviando imagens…");
