@@ -17,7 +17,7 @@
 <script>
 (function(){
 const URL="https://zitqgkmrndmivgkmzuvq.supabase.co",KEY="sb_publishable_PIZUvRRpR8JzfVfFIngvHg_SPDfmZBh",TABLE="site_config",BUCKET="site-assets";
-const $=s=>document.querySelector(s),form=$("#editor"),status=$("#status"),connection=$("#connection"),defaults=window.IgorSite?.defaults||{};
+const $=s=>document.querySelector(s),form=$("#editor"),status=$("#status"),connection=$("#connection"),defaults={name:"Igor Auto Elétrica",phone:"5584981535031",insta:"igor_auto.eletrica",phoneDisplay:"",address:"Av. João Paulo II, 49E - Nova Esperança, Parnamirim - RN, 59144-850",footer:"Igor Auto Elétrica. Atendimento em elétrica automotiva em Nova Esperança, Parnamirim - RN.",heroTitle:"ENERGIA E PRECISÃO PARA SEGUIR EM FRENTE.",heroText:"Especialistas em elétrica automotiva, com atenção técnica e atendimento próximo para manter seu veículo em funcionamento.",btn:"Falar pelo WhatsApp",btnLink:"",hours:"",theme:"midnight",services:[{name:"Elétrica automotiva",description:"Soluções e reparos em sistemas elétricos do veículo.",active:true},{name:"Alternadores",description:"Verificação e manutenção do sistema de carga.",active:true},{name:"Motores de partida",description:"Diagnóstico e manutenção do sistema de partida.",active:true},{name:"Faróis e iluminação",description:"Cuidados com faróis e iluminação automotiva.",active:true}],gallery:[],mascot:{enabled:true,outfit:"standard",expression:"happy",animation:"idle"},reviews:{url:"",rating:"",count:""},customTheme:{primary:"#163b63",secondary:"#245a91",background:"#080b10",surface:"#111a27",text:"#f2f4f7",muted:"#a7b0bd",accent:"#d6a928",radius:18,font:"Manrope"}},themes={midnight:defaults.customTheme,ocean:{primary:"#145a78",secondary:"#247da0",background:"#071721",surface:"#102b39",text:"#eef8fb",muted:"#a9c4ce",accent:"#70c6d8",radius:18,font:"Manrope"},light:{primary:"#244f79",secondary:"#3979ad",background:"#f3f6fa",surface:"#ffffff",text:"#182536",muted:"#627184",accent:"#c18d19",radius:14,font:"Manrope"},performance:{primary:"#163b63",secondary:"#286db0",background:"#070a0f",surface:"#121a25",text:"#f4f6f8",muted:"#9ba8b8",accent:"#e0b331",radius:10,font:"Sora"}};
 let client=null,cfg=Object.assign({},defaults),session=null;
 function msg(t,bad){status.textContent=t;status.style.color=bad?"#ff9d9d":"#e7c65e"}
 function setForm(){
@@ -27,7 +27,7 @@ f.services.value=(cfg.services||[]).map(x=>x.name+" | "+x.description).join("\n"
 f.reviewUrl.value=cfg.reviews?.url||"";f.rating.value=cfg.reviews?.rating||"";f.reviewCount.value=cfg.reviews?.count||"";
 f.galleryUrls.value=(cfg.gallery||[]).map(x=>x.url).join("\n");
 f.mascotEnabled.checked=cfg.mascot?.enabled!==false;f.outfit.value=cfg.mascot?.outfit||"standard";f.expression.value=cfg.mascot?.expression||"happy";f.animation.value=cfg.mascot?.animation||"idle";
-const t=cfg.theme==="custom"?cfg.customTheme:(window.IgorSite?.themes?.[cfg.theme]||window.IgorSite?.themes?.midnight||{});
+const t=cfg.theme==="custom"?cfg.customTheme:(themes[cfg.theme]||themes.midnight);
 ["primary","secondary","background","surface","text","muted","accent","font","radius"].forEach(k=>{if(f[k])f[k].value=t[k]??""});
 $("#logoInfo").textContent=cfg.logo?"Logo cadastrada.":"";$("#bannerInfo").textContent=cfg.banner?"Banner cadastrado.":"";$("#panoInfo").textContent=cfg.pano?"Imagem 360° cadastrada.":"";$("#galleryInfo").textContent=(cfg.gallery||[]).length+" imagem(ns) na galeria.";
 }
@@ -57,7 +57,7 @@ const ext=file.name.split(".").pop().toLowerCase(),path=folder+"/"+Date.now()+"-
 const result=await client.storage.from(BUCKET).upload(path,file,{upsert:false,contentType:file.type,cacheControl:"3600"});if(result.error)throw result.error;
 return client.storage.from(BUCKET).getPublicUrl(path).data.publicUrl;
 }
-$("#draft").addEventListener("click",()=>{try{localStorage.setItem("igor-site-draft",JSON.stringify(collect()));msg("Rascunho salvo somente neste navegador. Ainda não foi publicado.")}catch(e){msg("Não foi possível salvar o rascunho: "+e.message,true)}});
+form.elements.theme.addEventListener("change",()=>{const t=themes[form.elements.theme.value];if(t)Object.keys(t).forEach(k=>{if(form.elements[k])form.elements[k].value=t[k]})});\n$("#draft").addEventListener("click",()=>{try{localStorage.setItem("igor-site-draft",JSON.stringify(collect()));msg("Rascunho salvo somente neste navegador. Ainda não foi publicado.")}catch(e){msg("Não foi possível salvar o rascunho: "+e.message,true)}});
 form.addEventListener("submit",async e=>{
 e.preventDefault();if(!client||!session){msg("Sessão administrativa indisponível.",true);return}
 const btn=$("#publish");btn.disabled=true;msg("Validando dados e enviando imagens…");
