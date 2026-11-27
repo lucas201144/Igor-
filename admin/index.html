@@ -23,7 +23,7 @@ function msg(t,bad){status.textContent=t;status.style.color=bad?"#ff9d9d":"#e7c6
 function setForm(){
 const f=form.elements;
 ["name","phone","insta","phoneDisplay","address","footer","heroTitle","heroText","btn","btnLink","hours","theme"].forEach(k=>{if(f[k])f[k].value=cfg[k]||""});
-f.services.value=(cfg.services||[]).map(x=>x.name+" | "+x.description).join("\n");
+const currentServices=Array.isArray(cfg.services)?cfg.services:String(cfg.services||"").split("\n").filter(Boolean).map(line=>{const p=line.split("|");return{name:p.shift().trim(),description:p.join("|").trim()}});f.services.value=currentServices.map(x=>x.name+" | "+x.description).join("\n");
 f.reviewUrl.value=cfg.reviews?.url||"";f.rating.value=cfg.reviews?.rating||"";f.reviewCount.value=cfg.reviews?.count||"";
 f.galleryUrls.value=(cfg.gallery||[]).map(x=>x.url).join("\n");
 f.mascotEnabled.checked=cfg.mascot?.enabled!==false;f.outfit.value=cfg.mascot?.outfit||"standard";f.expression.value=cfg.mascot?.expression||"happy";f.animation.value=cfg.mascot?.animation||"idle";
