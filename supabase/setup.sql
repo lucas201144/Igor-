@@ -22,7 +22,7 @@ drop policy if exists "Admins can insert site configuration" on public.site_conf
 create policy "Admins can insert site configuration"
   on public.site_config for insert
   to authenticated
-  with check ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
+  with check (((select auth.jwt()) -> 'app_metadata' ->> 'role') = 'admin');
 
 drop policy if exists "Admins can update site configuration" on public.site_config;
 create policy "Admins can update site configuration"
